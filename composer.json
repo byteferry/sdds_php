@@ -1,0 +1,59 @@
+{
+    "name": "ByteFerry/Sdds_php",
+    "type": "library",
+    "description": "A PHP library to work with stream decode and encode according to the SDDS Specification.",
+    "keywords": [
+        "Sdds",
+        "stream",
+        "byte array",
+        "byte stream",
+        "byte buffer",
+        "stream buffer",
+        "binary stream",
+        "network binary stream",
+        "php7.1"
+    ],
+    "homepage": "https://github.com/byteferry/sdds_php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ByteFerry Team",
+            "role": "Developer",
+            "email": "ByteFerry@qq.com"
+        }
+    ],
+    "require": {
+        "php": "~7.1",
+        "larapack/dd": "1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.6",
+        "squizlabs/php_codesniffer": "^2.7"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "byteferry\\sdds_php\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "byteferry\\sdds_php\\": "tests"
+        },
+        "exclude-from-classmap": [
+            "**/Tests/"
+        ]
+    },
+    "scripts": {
+        "test": [
+            "parallel-lint . --exclude vendor",
+            "phpunit"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}
