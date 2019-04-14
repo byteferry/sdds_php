@@ -1,5 +1,5 @@
 {
-    "name": "ByteFerry/Sdds_php",
+    "name": "byteferry/sdds_php",
     "type": "library",
     "description": "A PHP library to work with stream decode and encode according to the SDDS Specification.",
     "keywords": [
