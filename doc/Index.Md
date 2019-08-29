@@ -2,7 +2,15 @@
 
 ## Summary
     
-    Sdds For Php is a Sdds Engine written using PHP according the Sdds Specification.
+Sdds For Php is a Sdds Engine written using PHP according the Sdds Specification.
+    
+For Chinese document please visit: [中文文档](https://github.com/byteferry/sdds_php/doc/zh_cn/index.MD)
+    
+
+  
+## Features
+    
+    
     
 ## Quick Toturial
     

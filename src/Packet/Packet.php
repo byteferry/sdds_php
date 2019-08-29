@@ -11,6 +11,7 @@
 
 namespace Sdds\Packet;
 
+use Sdds\Dispatcher\DispatcherTrait;
 
 /**
  * Class Packet
@@ -18,6 +19,13 @@ namespace Sdds\Packet;
  */
 class Packet
 {
+    use DispatcherTrait;
+
+    /**
+     * @var string
+     * @desc give the name part of function in the extension.
+     */
+    public $event_type = 'packet';
     /**
      * @var object
      */
@@ -37,9 +45,9 @@ class Packet
     /**
      * Packet constructor.
      */
-    public function __construct()
+    public function __construct($channel_name)
     {
-
+        $this->channel_name = $channel_name;
     }
 
 
@@ -61,4 +69,5 @@ class Packet
         $byteArr = str_split($stream);
         return $byteArr;
     }
+
 }

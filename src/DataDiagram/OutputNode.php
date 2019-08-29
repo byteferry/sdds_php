@@ -11,6 +11,7 @@
 
 namespace Sdds\DataDiagram;
 use Sdds\Constants\SelectorConstants;
+use Sdds\Dispatcher\Dispatcher;
 use Sdds\Exceptions\RuntimeException;
 use Sdds\FormulaEngine\FormulaEngine;
 use Sdds\Constants\NodeTypeConstants;
@@ -23,12 +24,14 @@ use Sdds\Registry\Registry;
 class OutputNode extends DataNode
 {
 
+    public $action_type = Dispatcher::OUTPUT;
     /**
      * OutputNode constructor.
+     * @param $channel_name
      */
-    public function __construct(){
-        parent::__construct();
-        $this->_registry = Registry::getInstanceByType(Registry::OUTPUT_STORAGE);
+    public function __construct($channel_name){
+        parent::__construct($channel_name);
+        $this->_registry = Registry::getInstanceByType(Registry::OUTPUT_STORAGE,$channel_name);
     }
 
     /**

@@ -67,14 +67,15 @@ abstract class Schema
      */
     protected $one_of_node_list=[];
 
-
     /**
      * Schema constructor.
+     * @param $channel_name
      * @param \Sdds\DataDiagram\DataNode $data_node
      */
-    public function __construct($data_node)
+    public function __construct($channel_name,$data_node)
     {
-        $this->data_node = $data_node;        
+        $this->channel_name = $channel_name;
+        $this->data_node = $data_node;
     }
 
     /**

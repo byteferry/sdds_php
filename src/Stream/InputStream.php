@@ -11,6 +11,7 @@
 
 namespace Sdds\Stream;
 
+use Sdds\Dispatcher\Dispatcher;
 use Sdds\Exceptions\InvalidArgumentException;
 
 /**
@@ -65,12 +66,19 @@ use Sdds\Exceptions\InvalidArgumentException;
 
 class InputStream extends Stream
 {
+
     /**
-     * Stream constructor.
+     * @var string
      */
-    public  function __construct( )
+    public $action_type = Dispatcher::INPUT;
+
+    /**
+     * InputStream constructor.
+     * @param $channel_name
+     */
+    public  function __construct($channel_name)
     {
-        parent::__construct();
+        parent::__construct($channel_name);
     }
 
     /**

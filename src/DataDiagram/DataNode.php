@@ -12,6 +12,7 @@
 namespace Sdds\DataDiagram;
 
 use Sdds\Constants\SelectorConstants;
+use Sdds\Dispatcher\DispatcherTrait;
 use Sdds\Exceptions\InvalidArgumentException;
 use Sdds\Exceptions\RuntimeException;
 use Sdds\Constants\NodeTypeConstants;
@@ -22,6 +23,13 @@ use Sdds\Constants\NodeTypeConstants;
  */
 class DataNode
 {
+    use DispatcherTrait;
+
+    /**
+     * @var string
+     * @desc give the name part of function in the extension.
+     */
+    public $event_type = 'dataNode';
     /**
      * @var array
      */
@@ -152,10 +160,12 @@ class DataNode
 
     /**
      * DataNode constructor.
+     * @param $channel_name
      */
-    public function __construct(){
+    public function __construct($channel_name){
         //make a backup copy.
         $this->attributes_keys = $this->attributes;
+        $this->setChannelName($channel_name);
     }
 
     /**
@@ -202,14 +212,8 @@ class DataNode
         }
         $before_change = explode(',',$this->before_change);
         if(count($before_change) > 0){
-            foreach($before_change as $key => $method){
-                if(method_exists(get_called_class(),$method)){
-                    $this->$method();
-                }else{
-                    if(false===$this->isIgnoreErrors()){
-                        throw RuntimeException::MethodNotExists($method);
-                    }
-                }
+            foreach($before_change as $method){
+                $this->emitCall($method);
             }
         }
         return $this;
@@ -225,17 +229,29 @@ class DataNode
         }
         $after_change = explode(',',$this->after_change);
         if(count($after_change) > 0){
-            foreach($after_change as $key => $method){
-                if(method_exists(get_called_class(),$method)){
-                    $this->$method();
-                }else{
-                    if(false===$this->isIgnoreErrors()) {
-                        throw RuntimeException::MethodNotExists($method);
-                    }
-                }
+            foreach($after_change as $method){
+                $this->emitCall($method);
             }
         }
         return $this;
+    }
+
+
+    /**
+     * @param $method
+     * @return mixed|void
+     * @desc call the method in called class or extension
+     */
+    public function emitCall($method){
+        if(method_exists(get_called_class(),$method)){
+            return $this->$method();
+        }
+        if($this->hasListener($method)){
+            return $this->triggerEvent($method,$this,[]);
+        }
+        if(false===$this->isIgnoreErrors()) {
+            throw RuntimeException::MethodNotExists($method);
+        }
     }
 
     /**
@@ -251,6 +267,9 @@ class DataNode
         	$format = $this->format;
         	if('*' == $format[0]){
                 $method = ltrim($format,'*');
+                if($this->hasListener($method)){
+                    return $this->triggerEvent($method,$this);
+                }
                 if(method_exists(get_called_class(),$method)){
                     return $this->$method();
                 } /** else return the raw string */
@@ -316,6 +335,9 @@ class DataNode
      */
     public function getValueByMethod($value){
         $method = ltrim($value,'*');
+        if($this->hasListener($method)){
+            return $this->triggerEvent($method,$this);
+        }
         if(method_exists(get_called_class(),$method)){
             return $this->$method();
         }else{
@@ -624,9 +646,13 @@ class DataNode
     	$return = false;
         if(isset($this->until)){
             $method = $this->until;
+            if($this->hasListener($method)){
+                $return = $this->triggerEvent($method,$this);
+            }
             if(method_exists($this,$method)){
                 $return = $this->$method();
-            }else{
+            }
+            if (false === $return){
                 throw RuntimeException::MethodNotExists($method);
             }
         }

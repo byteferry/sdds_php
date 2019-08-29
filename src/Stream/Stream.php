@@ -11,6 +11,7 @@
 
 namespace Sdds\Stream;
 
+use Sdds\Dispatcher\DispatcherTrait;
 use Sdds\Exceptions\InvalidArgumentException;
 use Sdds\Exceptions\RuntimeException;
 
@@ -22,6 +23,12 @@ use Sdds\Exceptions\RuntimeException;
  */
 class Stream
 {
+    use DispatcherTrait;
+    /**
+     * @var string
+     * @desc give the name part of function in the extension.
+     */
+    public $event_type = 'stream';
     /**
      * Endianness constant;
      */
@@ -167,9 +174,9 @@ class Stream
     /**
      * Stream constructor.
      */
-    protected function __construct()
+    protected function __construct($channel_name)
     {
-
+        $this->channel_name = $channel_name;
     }
 
     /**
@@ -178,7 +185,7 @@ class Stream
      * @param string $stream_type Stream type(RESOURCE,OBJECT,STRING,FILE,TEMP_FILE,MEMORY)
      * @return $this
      */
-    public function init_stream($stream, $options = [], $stream_type = null)
+    public function initStream($stream, $options = [], $stream_type = null)
     {
         if (!is_resource($stream)) {
             throw InvalidArgumentException::StreamMustBeResource();
@@ -225,7 +232,7 @@ class Stream
             fwrite($stream, $string_buffer);
             fseek($stream, 0);
         }
-        return $this->init_stream($stream, $options,self::STREAM_FILE);
+        return $this->initStream($stream, $options,self::STREAM_FILE);
 
     }
 
@@ -246,7 +253,7 @@ class Stream
         if(null == $stream_type){
             $stream_type = self::STREAM_STRING;
         }
-        return $this->init_stream($stream, $options,$stream_type);
+        return $this->initStream($stream, $options,$stream_type);
 
     }
 
@@ -258,7 +265,7 @@ class Stream
      */
     public function ofResource($resource, $options = []){
 
-        return $this->init_stream($resource, $options,self::STREAM_RESOURCE);
+        return $this->initStream($resource, $options,self::STREAM_RESOURCE);
 
     }
 
@@ -275,7 +282,7 @@ class Stream
             fwrite($stream, $string_buffer);
             fseek($stream, 0);
         }
-        return $this->init_stream($stream, $options,self::STREAM_TEMP_FILE);
+        return $this->initStream($stream, $options,self::STREAM_TEMP_FILE);
 
     }
 
@@ -292,7 +299,7 @@ class Stream
             fwrite($stream, $string_buffer);
             fseek($stream, 0);
         }
-        return $this->init_stream($stream, $options,self::STREAM_MEMORY);
+        return $this->initStream($stream, $options,self::STREAM_MEMORY);
     }
 
     /**
@@ -553,6 +560,10 @@ class Stream
             return call_user_func_array([$this,$method_name],$args);
         }
 
+        if($this->hasListener($method_name)){
+            return $this->triggerEvent($method_name,$this,$args);
+        }
+
         if (preg_match('~^(read|write|insert|replace|skip)(U{0,1})([A-Z])([a-z0-9]*)([LBE]*)$~', $method_name, $matches)) {
             $action = $matches[1];
             $sign = $matches[2];
@@ -569,6 +580,10 @@ class Stream
             }
 
             $method = $action .$sign .ucfirst($type).$suffix ;
+
+            if($this->hasListener($method)){
+                return $this->triggerEvent($method,$this,$args);
+            }
 
             if (method_exists(get_called_class(),$method)){
                 return call_user_func_array([$this,$method],$args);
@@ -604,6 +619,11 @@ class Stream
             $suffix = '';
         }
         $method = $action . $unsigned .  ucfirst($type) .$suffix;
+
+        if($this->hasListener($method)){
+            return $this->triggerEvent($method,$this,$args);
+        }
+
         if(method_exists(get_called_class(),$method)){
             return $this->$method(...$args);
         }else{
@@ -622,6 +642,9 @@ class Stream
             return true;
         }
         $method_name = $action. ucfirst($type_name);
+        if($this->hasListener($method_name)){
+            return true;
+        }
         if (method_exists(get_called_class(),$method_name)){
             return true;
         }

@@ -27,7 +27,7 @@ class Registry
     /**
      * output storage constants
      */
-    const OUTPUT_STORAGE ='INPUT';
+    const OUTPUT_STORAGE ='OUTPUT';
     /**
      * object array with id key
      * @var array
@@ -48,14 +48,15 @@ class Registry
 
     /**
      * @param $type_name
+     * @param $channel_name
      * @return mixed
      * @desc Using own instance for input and output.
      */
-    public static function getInstanceByType($type_name) {
-        if(!isset(self::$instance[$type_name])) {
-            self::$instance[$type_name] = new Registry();
+    public static function getInstanceByType($type_name,$channel_name) {
+        if(!isset(self::$instance[$channel_name][$type_name])) {
+            self::$instance[$channel_name][$type_name] = new Registry();
         }
-        return self::$instance[$type_name];
+        return self::$instance[$channel_name][$type_name];
     }
 
     /**

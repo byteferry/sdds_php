@@ -11,7 +11,12 @@
 
 namespace Sdds\Packet;
 
+use Sdds\Constants\ActionTypeContants;
 use Sdds\Constants\NodeTypeConstants as NodeType;
+use Sdds\DataDiagram\InputNode;
+use Sdds\Schema\InputSchema;
+use Sdds\Stream\InputStream;
+use Sdds\Dispatcher\Dispatcher;
 
 /**
  * Class PacketDecoder
@@ -19,22 +24,21 @@ use Sdds\Constants\NodeTypeConstants as NodeType;
  */
 class PacketDecoder extends Packet
 {
-
+    public $action_type = ActionTypeContants::INPUT;
     /**
      * PacketDecoder constructor.
+     * @param $channel_name
+     * @param $schema_file
      */
-    public function __construct()
+    public function __construct($channel_name,$schema_file)
     {
-        parent::__construct();
-    }
-
-    /**
-     * @param \Sdds\Schema\InputSchema $schema
-     * @param \Sdds\Stream\InputStream $stream
-     */
-    public function init($schema, $stream)
-    {
+        parent::__construct($channel_name);
+        $inputNode = new InputNode($channel_name);
+        $schema = new InputSchema($channel_name,$inputNode);
+        $schema->init($schema_file);
+        $stream = new InputStream($channel_name);
         parent::init($schema,$stream);
+
     }
 
     /**
@@ -49,7 +53,5 @@ class PacketDecoder extends Packet
         $data_array = $message->decode($string_buffer);
         return $data_array;
     }
-
-
 
 }

@@ -63,8 +63,8 @@ class FormulaEngine
         $formula_exp = '$return=' . $formula . ";";
         $return = 0;
 
-        call_user_func(function()use($variables,$formula_exp,&$return){
-            extract($variables,EXTR_OVERWRITE);
+        call_user_func(function()use($var_array,$formula_exp,&$return){
+            extract($var_array,EXTR_OVERWRITE);
             @eval($formula_exp);
         });
 

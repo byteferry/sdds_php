@@ -13,6 +13,7 @@ namespace Sdds\DataDiagram;
 use ByteFerry\Exceptions\RuntimeException;
 use Sdds\Constants\SelectorConstants;
 use Sdds\Constants\NodeTypeConstants;
+use Sdds\Dispatcher\Dispatcher;
 use Sdds\FormulaEngine\FormulaEngine;
 use Sdds\Registry\Registry;
 
@@ -22,12 +23,15 @@ use Sdds\Registry\Registry;
  */
 class InputNode extends DataNode
 {
+    public $action_type = Dispatcher::INPUT;
+
     /**
      * InputNode constructor.
+     * @param $channel_name
      */
-    public function __construct(){
-        parent::__construct();
-        $this->_registry = Registry::getInstanceByType(Registry::INPUT_STORAGE);
+    public function __construct($channel_name){
+        parent::__construct($channel_name);
+        $this->_registry = Registry::getInstanceByType(Registry::INPUT_STORAGE,$channel_name);
     }
 
     /**

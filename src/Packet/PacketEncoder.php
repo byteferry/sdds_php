@@ -11,30 +11,32 @@
 
 namespace Sdds\Packet;
 use Sdds\Constants\NodeTypeConstants as NodeType;
-
+use Sdds\DataDiagram\OutputNode;
+use Sdds\Dispatcher\Dispatcher;
+use Sdds\Schema\OutputSchema;
+use Sdds\Stream\OutputStream;
+use Sdds\Constants\ActionTypeContants;
 /**
  * Class PacketEncoder
  * @package Sdds\Packet
  */
 class PacketEncoder extends Packet
 {
-
+    public $action_type = ActionTypeContants::OUTPUT;
     /**
      * PacketEncoder constructor.
+     * @param $schema_file
      */
-    public function __construct()
+    public function __construct($channel_name,$schema_file)
     {
-        parent::__construct();
-    }
-
-    /**
-     * @param \Sdds\Schema\Schema $schema
-     * @param \Sdds\Stream\Stream $stream
-     */
-    public function init($schema, $stream)
-    {
+        parent::__construct($channel_name);
+        $inputNode = new OutputNode($channel_name);
+        $schema = new OutputSchema($channel_name,$inputNode);
+        $schema->init($schema_file);
+        $stream = new OutputStream($channel_name);
         parent::init($schema,$stream);
     }
+
     /**
      * @param $data_array
      * @throws \Sdds\Exceptions\SchemaException

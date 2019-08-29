@@ -66,7 +66,7 @@ If you discover any security related issues, please create an issue in the issue
     
 ## Credits
 
-- [Bardo Qi][link-author]
+- [ByteFerry][link-author]
 - [All Contributors][link-contributors]
 
 ## License
@@ -85,6 +85,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-scrutinizer]: https://scrutinizer-ci.com/g/byteferry/sdds_php/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/byteferry/sdds_php
 [link-downloads]: https://packagist.org/packages/byteferry/sdds_php
-[link-author]: https://github.com/bardoqi
+[link-author]: https://github.com/byteferry
 [link-contributors]: ../../contributors
 [link-pecl-php-operator]:https://github.com/php/pecl-php-operator

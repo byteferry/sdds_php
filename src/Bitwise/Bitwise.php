@@ -11,6 +11,7 @@
 
 namespace Sdds\Bitwise;
 
+use Sdds\Dispatcher\DispatcherTrait;
 use Sdds\Exceptions\RuntimeException;
 use ArrayAccess;
 use Iterator;
@@ -23,7 +24,13 @@ use Countable;
  */
 class Bitwise implements ArrayAccess,Iterator,Countable
 {
+    use DispatcherTrait;
 
+    /**
+     * @var string
+     * @desc give the name part of function in the extension.
+     */
+    public $caller_type = 'bitwise';
     /**
      * @var array $bin_array
      * @desc keep the binary in the array.
@@ -192,9 +199,8 @@ class Bitwise implements ArrayAccess,Iterator,Countable
 		$method = $action. ucfirst($type);
 		if(method_exists(get_called_class(),$method)){
             $this->$method(...$args);
-        }else{
-            throw RuntimeException::MethodNotExists($method);
         }
+        return $this->triggerEvent($method,$this,$args);
 
     }
 

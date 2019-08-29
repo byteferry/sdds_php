@@ -19,11 +19,12 @@ class OutputSchema extends Schema
 {
     /**
      * OutputSchema constructor.
+     * @param $channel_name
      * @param \Sdds\DataDiagram\DataNode $data_node
      */
-    public function __construct($data_node)
+    public function __construct($channel_name,$data_node)
     {
-        parent::__construct($data_node);
+        parent::__construct($channel_name,$data_node);
     }
 
     /**
