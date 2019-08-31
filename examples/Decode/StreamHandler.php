@@ -8,13 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Sdds\Examples;
+namespace Sdds\Examples\Decode;
 
 use Sdds\Constants\ActionTypeContants;
 use Sdds\Constants\EventTypeConstants;
 use Sdds\Dispatcher\EventHandler;
 use Sdds\Dispatcher\EventHandlerInterface;
 
+/**
+ * Class StreamHandler
+ * @package Sdds\Examples\Decode
+ */
 class StreamHandler extends EventHandler implements EventHandlerInterface
 {
     /**
@@ -38,5 +42,11 @@ class StreamHandler extends EventHandler implements EventHandlerInterface
     public function actionType(){
         return ActionTypeContants::INPUT;
     }
+
+    /**
+     * TODO: Implements your extend functions here
+     */
+
+
 
 }

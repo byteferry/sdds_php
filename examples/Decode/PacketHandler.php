@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Sdds\Examples;
+namespace Sdds\Examples\Decode;
 
 use Sdds\Constants\ActionTypeContants;
 use Sdds\Constants\EventTypeConstants;
@@ -38,4 +38,8 @@ class PacketHandler extends EventHandler implements EventHandlerInterface
     public function actionType(){
         return ActionTypeContants::INPUT;
     }
+
+    /**
+     * TODO: Implements your extend functions here
+     */
 }

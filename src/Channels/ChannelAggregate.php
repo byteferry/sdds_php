@@ -19,6 +19,10 @@ use Sdds\Dispatcher\Dispatcher;
  */
 class ChannelAggregate
 {
+
+    /**
+     * @var null
+     */
     public static $packet_instance = null;
 
 
@@ -35,10 +39,28 @@ class ChannelAggregate
      */
     final private function __clone(){}
 
+
     /**
      * @return mixed
      */
-    public function getDispatch(){
+    final public static function getInstance()
+    {
+        static $instances = array();
+
+        $calledClass = get_called_class();
+
+        if (!isset($instances[$calledClass]))
+        {
+            $instances[$calledClass] = new $calledClass();
+        }
+
+        return $instances[$calledClass];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDispatcher(){
         return Dispatcher::getInstance($this->channel_name,$this->action_type);
     }
 }

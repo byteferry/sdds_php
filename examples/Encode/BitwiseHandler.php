@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Sdds\Examples\Decode;
+namespace Sdds\Examples\Encode;
 
 use Sdds\Constants\ActionTypeContants;
 use Sdds\Constants\EventTypeConstants;
 use Sdds\Dispatcher\EventHandler;
 use Sdds\Dispatcher\EventHandlerInterface;
 
-class DateNodeHandler extends EventHandler implements EventHandlerInterface
+class BitwiseHandler extends EventHandler implements EventHandlerInterface
 {
     /**
      * Listener constructor.
@@ -29,18 +29,17 @@ class DateNodeHandler extends EventHandler implements EventHandlerInterface
      * @return mixed
      */
     public function eventType(){
-        return EventTypeConstants::EVENT_DATE_NODE;
+        return EventTypeConstants::EVENT_BITWISE;
     }
 
     /**
      * @return mixed
      */
     public function actionType(){
-        return ActionTypeContants::INPUT;
+        return ActionTypeContants::OUTPUT;
     }
 
     /**
      * TODO: Implements your extend functions here
      */
-
 }

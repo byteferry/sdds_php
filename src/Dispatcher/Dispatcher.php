@@ -10,7 +10,10 @@
 
 namespace Sdds\Dispatcher;
 
-
+/**
+ * Class Dispatcher
+ * @package Sdds\Dispatcher
+ */
 class Dispatcher
 {
 

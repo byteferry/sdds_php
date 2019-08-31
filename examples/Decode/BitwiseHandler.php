@@ -15,7 +15,7 @@ use Sdds\Constants\EventTypeConstants;
 use Sdds\Dispatcher\EventHandler;
 use Sdds\Dispatcher\EventHandlerInterface;
 
-class DateNodeHandler extends EventHandler implements EventHandlerInterface
+class BitwiseHandler extends EventHandler implements EventHandlerInterface
 {
     /**
      * Listener constructor.
@@ -29,7 +29,7 @@ class DateNodeHandler extends EventHandler implements EventHandlerInterface
      * @return mixed
      */
     public function eventType(){
-        return EventTypeConstants::EVENT_DATE_NODE;
+        return EventTypeConstants::EVENT_BITWISE;
     }
 
     /**
@@ -42,5 +42,4 @@ class DateNodeHandler extends EventHandler implements EventHandlerInterface
     /**
      * TODO: Implements your extend functions here
      */
-
 }

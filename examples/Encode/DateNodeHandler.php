@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Sdds\Examples;
+namespace Sdds\Examples\Encode;
 
 use Sdds\Constants\ActionTypeContants;
 use Sdds\Constants\EventTypeConstants;

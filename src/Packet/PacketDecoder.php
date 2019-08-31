@@ -17,7 +17,7 @@ use Sdds\DataDiagram\InputNode;
 use Sdds\Schema\InputSchema;
 use Sdds\Stream\InputStream;
 use Sdds\Dispatcher\Dispatcher;
-
+use Sdds\Packet\PacketInterface;
 /**
  * Class PacketDecoder
  * @package Sdds\Packet
