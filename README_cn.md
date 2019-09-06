@@ -62,7 +62,7 @@ SDDS是基于SDDS规范编写的解析引擎，用它可以实现二进制通讯
     
 - 事件扩展
     
-所以自定义函数可以通过对应的EventHandler实现。
+所有自定义函数可以通过对应的EventHandler实现。
     
 - 公式表达式
  
@@ -227,6 +227,10 @@ class DecodeChannel extends InputChannel implements ChannelInterface
 ```       
 
 更多请参考examples目录中的源码。
+  
+## 客服QQ群
+  
+  769010107
    
 ## 贡献
     
