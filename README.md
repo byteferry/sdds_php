@@ -89,7 +89,7 @@ $ composer require byteferry/sdds_php:dev-master
 
 ## Usage
 
-- Step 1: write SDDS Schema according to [SDDS Specification] (https://github.com/byteferry/sdds/blob/master/README.md) .
+- Step 1: write SDDS Schema according to [SDDS Specification](https://github.com/byteferry/sdds/blob/master/README.md) .
   
 - Step 2: Write the code to call SDDS PHP
   
