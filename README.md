@@ -22,7 +22,7 @@ A PHP library to work with stream decode and encode according to the SDDS Specif
   
 ## Introduction
 
-[中文文档](https://github.com/byteferry/sdds_php/README_cn.md)
+[中文文档](https://github.com/byteferry/sdds_php/blob/master/README_cn.md)
 
 ### What is SDDS?
     
